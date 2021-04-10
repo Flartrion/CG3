@@ -24,7 +24,7 @@ class BezierSurface : JPanel() {
         }
         for (u in 0..100 step 5) {
             for (v in 0..100 step 5) {
-                val index = u / 5 + v * 4
+                val index = v / 5 + u / 5 * 21
                 for (i in 0..3) {
                     for (j in 0..3) {
                         bezierCurvePoints[index] += contourPoints[j + 4 * i] *
@@ -164,6 +164,16 @@ class BezierSurface : JPanel() {
                     resultMatrix[contourPoints.size + j + i * 21 + 2, 2],
                     resultMatrix[contourPoints.size + j + i * 21 + 2, 3]
                 )
+//                val xy1 = Vertex(
+//                    resultMatrix[contourPoints.size + j * 21 + i + 1, 1],
+//                    resultMatrix[contourPoints.size + j * 21 + i + 1, 2],
+//                    resultMatrix[contourPoints.size + j * 21 + i + 1, 3]
+//                )
+//                val xy2 = Vertex(
+//                    resultMatrix[contourPoints.size + (j+1) * 21 + i + 1, 1],
+//                    resultMatrix[contourPoints.size + (j+1) * 21 + i + 1, 2],
+//                    resultMatrix[contourPoints.size + (j+1) * 21 + i + 1, 3]
+//                )
                 g.drawLine(
                     xy1.x.roundToInt(), xy1.y.roundToInt(),
                     xy2.x.roundToInt(), xy2.y.roundToInt()
@@ -183,6 +193,16 @@ class BezierSurface : JPanel() {
                     resultMatrix[contourPoints.size + j + (i + 1) * 21 + 1, 2],
                     resultMatrix[contourPoints.size + j + (i + 1) * 21 + 1, 3]
                 )
+//                val xy1 = Vertex(
+//                    resultMatrix[contourPoints.size + j * 21 + i + 1, 1],
+//                    resultMatrix[contourPoints.size + j * 21 + i + 1, 2],
+//                    resultMatrix[contourPoints.size + j * 21 + i + 1, 3]
+//                )
+//                val xy2 = Vertex(
+//                    resultMatrix[contourPoints.size + (j) * 21 + i + 2, 1],
+//                    resultMatrix[contourPoints.size + (j) * 21 + i + 2, 2],
+//                    resultMatrix[contourPoints.size + (j) * 21 + i + 2, 3]
+//                )
                 g.drawLine(
                     xy1.x.roundToInt(), xy1.y.roundToInt(),
                     xy2.x.roundToInt(), xy2.y.roundToInt()
