@@ -11,8 +11,6 @@ import kotlin.math.sqrt
 class BezierSurface : JPanel() {
     val contourPoints = ArrayList<Vertex>()
 
-    private val tempPoints = ArrayList<Vertex>()
-
     private val bezierCurvePoints = ArrayList<Vertex>()
 
     init {
@@ -20,16 +18,19 @@ class BezierSurface : JPanel() {
     }
 
     fun calculatePoints() {
-        tempPoints.clear()
-        tempPoints.addAll(contourPoints)
         bezierCurvePoints.clear()
-        for (i in 0..100 step 1) {
-            for (j in 0 until contourPoints.size - 1) {
-                for (k in 0 until contourPoints.size - j - 1) {
-                    tempPoints[k] = tempPoints[k] + (tempPoints[k + 1] - tempPoints[k]) * i.toDouble() / 100.0
+        for (u in 0..100 step 5) {
+            for (v in 0..100 step 5) {
+                val index = v / 5 + u * 4
+                bezierCurvePoints[index] = Vertex(0.0, 0.0, 0.0)
+                for (i in 0..3) {
+                    for (j in 0..3) {
+                        bezierCurvePoints[index] += contourPoints[j + 4 * i] *
+                                SurfaceMath.bernsteinPoly(3, i, u.toDouble() / 100) *
+                                SurfaceMath.bernsteinPoly(3, j, v.toDouble() / 100)
+                    }
                 }
             }
-            bezierCurvePoints.add(tempPoints[0])
         }
     }
 
@@ -137,8 +138,8 @@ class BezierSurface : JPanel() {
             transformContourPoints[i, 4] = 1.0
         }
 
-        transformBezierPoints *= TransformMatrixFabric.rotateX(angle/180*PI)
-        transformContourPoints *= TransformMatrixFabric.rotateX(angle/180*PI)
+        transformBezierPoints *= TransformMatrixFabric.rotateX(angle / 180 * PI)
+        transformContourPoints *= TransformMatrixFabric.rotateX(angle / 180 * PI)
 
         for (i in 1..bezierCurvePoints.size) {
             bezierCurvePoints[i - 1].x = transformBezierPoints[i, 1]
@@ -168,8 +169,8 @@ class BezierSurface : JPanel() {
             transformContourPoints[i, 4] = 1.0
         }
 
-        transformBezierPoints *= TransformMatrixFabric.rotateY(angle/180*PI)
-        transformContourPoints *= TransformMatrixFabric.rotateY(angle/180*PI)
+        transformBezierPoints *= TransformMatrixFabric.rotateY(angle / 180 * PI)
+        transformContourPoints *= TransformMatrixFabric.rotateY(angle / 180 * PI)
 
         for (i in 1..bezierCurvePoints.size) {
             bezierCurvePoints[i - 1].x = transformBezierPoints[i, 1]

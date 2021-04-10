@@ -8,7 +8,6 @@ class MainWindow : JFrame() {
     private val bezierSurface = BezierSurface()
     private val pointEditButton = JButton("Изменить")
 
-
     init {
         val inputPanel = JPanel()
         inputPanel.layout = BorderLayout()
