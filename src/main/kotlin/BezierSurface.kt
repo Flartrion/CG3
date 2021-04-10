@@ -19,10 +19,12 @@ class BezierSurface : JPanel() {
 
     fun calculatePoints() {
         bezierCurvePoints.clear()
+        repeat(441) {
+            bezierCurvePoints.add(Vertex(0.0, 0.0, 0.0))
+        }
         for (u in 0..100 step 5) {
             for (v in 0..100 step 5) {
-                val index = v / 5 + u * 4
-                bezierCurvePoints[index] = Vertex(0.0, 0.0, 0.0)
+                val index = u / 5 + v * 4
                 for (i in 0..3) {
                     for (j in 0..3) {
                         bezierCurvePoints[index] += contourPoints[j + 4 * i] *
@@ -54,6 +56,7 @@ class BezierSurface : JPanel() {
             objectMatrix[i + 1 + contourPoints.size, 3] = bezierCurvePoints[i].z
             objectMatrix[i + 1 + contourPoints.size, 4] = 1.0
         }
+
         objectMatrix[contourPoints.size + bezierCurvePoints.size + 1, 1] = 0.0
         objectMatrix[contourPoints.size + bezierCurvePoints.size + 1, 2] = 0.0
         objectMatrix[contourPoints.size + bezierCurvePoints.size + 1, 3] = 0.0
@@ -101,24 +104,90 @@ class BezierSurface : JPanel() {
         g.translate(width / 2, height / 2)
 
         g.color = Color.WHITE
-        for (i in 0 until contourPoints.size - 1) {
+        for (i in 0 until 4) {
+            for (j in 0 until 3) {
+                val xy1 = Vertex(
+                    resultMatrix[j + i * 4 + 1, 1],
+                    resultMatrix[j + i * 4 + 1, 2],
+                    resultMatrix[j + i * 4 + 1, 3]
+                )
+                val xy2 = Vertex(
+                    resultMatrix[j + i * 4 + 2, 1],
+                    resultMatrix[j + i * 4 + 2, 2],
+                    resultMatrix[j + i * 4 + 2, 3]
+                )
+                g.drawLine(
+                    xy1.x.roundToInt(), xy1.y.roundToInt(),
+                    xy2.x.roundToInt(), xy2.y.roundToInt()
+                )
+            }
+        }
 
-            val xy1 = Vertex(resultMatrix[i + 1, 1], resultMatrix[i + 1, 2], resultMatrix[i + 1, 3])
-            val xy2 = Vertex(resultMatrix[i + 2, 1], resultMatrix[i + 2, 2], resultMatrix[i + 2, 3])
-            g.drawLine(
-                xy1.x.roundToInt(), xy1.y.roundToInt(),
-                xy2.x.roundToInt(), xy2.y.roundToInt()
-            )
+        for (j in 0 until 4) {
+            for (i in 0 until 3) {
+                val xy1 = Vertex(
+                    resultMatrix[j + i * 4 + 1, 1],
+                    resultMatrix[j + i * 4 + 1, 2],
+                    resultMatrix[j + i * 4 + 1, 3]
+                )
+                val xy2 = Vertex(
+                    resultMatrix[j + (i + 1) * 4 + 1, 1],
+                    resultMatrix[j + (i + 1) * 4 + 1, 2],
+                    resultMatrix[j + (i + 1) * 4 + 1, 3]
+                )
+                g.drawLine(
+                    xy1.x.roundToInt(), xy1.y.roundToInt(),
+                    xy2.x.roundToInt(), xy2.y.roundToInt()
+                )
+            }
         }
 
         g.color = Color.CYAN
-        for (i in contourPoints.size until contourPoints.size + bezierCurvePoints.size - 1) {
-            val xy1 = Vertex(resultMatrix[i + 1, 1], resultMatrix[i + 1, 2], resultMatrix[i + 1, 3])
-            val xy2 = Vertex(resultMatrix[i + 2, 1], resultMatrix[i + 2, 2], resultMatrix[i + 2, 3])
-            g.drawLine(
-                xy1.x.roundToInt(), xy1.y.roundToInt(),
-                xy2.x.roundToInt(), xy2.y.roundToInt()
-            )
+//        for (i in contourPoints.size until contourPoints.size + bezierCurvePoints.size - 1) {
+//            val xy1 = Vertex(resultMatrix[i + 1, 1], resultMatrix[i + 1, 2], resultMatrix[i + 1, 3])
+//            val xy2 = Vertex(resultMatrix[i + 2, 1], resultMatrix[i + 2, 2], resultMatrix[i + 2, 3])
+//            g.drawLine(
+//                xy1.x.roundToInt(), xy1.y.roundToInt(),
+//                xy2.x.roundToInt(), xy2.y.roundToInt()
+//            )
+//        }
+
+        for (i in 0 until 21) {
+            for (j in 0 until 20) {
+                val xy1 = Vertex(
+                    resultMatrix[contourPoints.size + j + i * 21 + 1, 1],
+                    resultMatrix[contourPoints.size + j + i * 21 + 1, 2],
+                    resultMatrix[contourPoints.size + j + i * 21 + 1, 3]
+                )
+                val xy2 = Vertex(
+                    resultMatrix[contourPoints.size + j + i * 21 + 2, 1],
+                    resultMatrix[contourPoints.size + j + i * 21 + 2, 2],
+                    resultMatrix[contourPoints.size + j + i * 21 + 2, 3]
+                )
+                g.drawLine(
+                    xy1.x.roundToInt(), xy1.y.roundToInt(),
+                    xy2.x.roundToInt(), xy2.y.roundToInt()
+                )
+            }
+        }
+
+        for (j in 0 until 21) {
+            for (i in 0 until 20) {
+                val xy1 = Vertex(
+                    resultMatrix[contourPoints.size + j + i * 21 + 1, 1],
+                    resultMatrix[contourPoints.size + j + i * 21 + 1, 2],
+                    resultMatrix[contourPoints.size + j + i * 21 + 1, 3]
+                )
+                val xy2 = Vertex(
+                    resultMatrix[contourPoints.size + j + (i + 1) * 21 + 1, 1],
+                    resultMatrix[contourPoints.size + j + (i + 1) * 21 + 1, 2],
+                    resultMatrix[contourPoints.size + j + (i + 1) * 21 + 1, 3]
+                )
+                g.drawLine(
+                    xy1.x.roundToInt(), xy1.y.roundToInt(),
+                    xy2.x.roundToInt(), xy2.y.roundToInt()
+                )
+            }
         }
     }
 

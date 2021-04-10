@@ -19,14 +19,25 @@ class MainWindow : JFrame() {
         pointInput.layout = BoxLayout(pointInput, BoxLayout.PAGE_AXIS)
 
 
-        pointData.addElement(Vertex(0.0, 0.0, 0.0))
-        pointData.addElement(Vertex(0.0, 0.0, 50.0))
-        pointData.addElement(Vertex(78.0, 50.0, 0.0))
-        pointData.addElement(Vertex(25.0, 78.0, -50.0))
-        pointData.addElement(Vertex(25.0, -25.0, -30.0))
-        pointData.addElement(Vertex(-25.0, 25.0, -60.0))
-        pointData.addElement(Vertex(-50.0, -80.0, 0.0))
-        pointData.addElement(Vertex(0.0, 0.0, 0.0))
+        pointData.addElement(Vertex(-150.0, 0.0, 150.0))
+        pointData.addElement(Vertex(-150.0, 5.0, 50.0))
+        pointData.addElement(Vertex(-150.0, 5.0, -50.0))
+        pointData.addElement(Vertex(-150.0, 0.0, -150.0))
+
+        pointData.addElement(Vertex(-50.0, 50.0, 150.0))
+        pointData.addElement(Vertex(-50.0, 50.0, 50.0))
+        pointData.addElement(Vertex(-50.0, 50.0, -50.0))
+        pointData.addElement(Vertex(-50.0, 50.0, -150.0))
+
+        pointData.addElement(Vertex(50.0, 50.0, 150.0))
+        pointData.addElement(Vertex(50.0, 50.0, 50.0))
+        pointData.addElement(Vertex(50.0, 50.0, -50.0))
+        pointData.addElement(Vertex(50.0, 50.0, -150.0))
+
+        pointData.addElement(Vertex(150.0, 0.0, 150.0))
+        pointData.addElement(Vertex(150.0, 50.0, 50.0))
+        pointData.addElement(Vertex(150.0, 50.0, -50.0))
+        pointData.addElement(Vertex(150.0, 0.0, -150.0))
 
         pointList.model = pointData
         pointList.selectionMode = ListSelectionModel.SINGLE_SELECTION
@@ -127,7 +138,7 @@ class MainWindow : JFrame() {
 
         this.add(inputPanel, BorderLayout.NORTH)
         this.defaultCloseOperation = EXIT_ON_CLOSE
-        this.title = "Rotating figure"
+        this.title = "Smooth criminal"
         this.isResizable = true
         this.add(bezierCurve, BorderLayout.CENTER)
         this.pack()

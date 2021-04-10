@@ -6,7 +6,7 @@ object SurfaceMath {
         factorial(n).toDouble() / (factorial(i) * factorial(n - i))
 
     fun bernsteinPoly(n: Int, i: Int, u: Double) =
-        binomCoeff(i, n) * (u.pow(i)) * (1 - u).pow(n - i)
+        binomCoeff(n, i) * (u.pow(i)) * (1 - u).pow(n - i)
 
     fun factorial(i: Int): Int {
         var a = 1
