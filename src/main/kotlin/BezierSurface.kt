@@ -8,7 +8,7 @@ import kotlin.math.atan2
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
-class BezierCurves : JPanel() {
+class BezierSurface : JPanel() {
     val contourPoints = ArrayList<Vertex>()
 
     private val tempPoints = ArrayList<Vertex>()
