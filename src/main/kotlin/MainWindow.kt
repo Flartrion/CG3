@@ -8,7 +8,7 @@ class MainWindow : JFrame() {
     private val pointAddButton = JButton("Добавить")
     private val pointRemoveButton = JButton("Удалить")
     private val pointEditButton = JButton("Изменить")
-    private val bezierCurve = BezierCurves()
+    private val bezierCurve = BezierSurface()
 
 
     init {
